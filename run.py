@@ -12,7 +12,7 @@ from vunit import VUnit
 from pathlib import Path
 
 # -----------------------------------------------------------------------------------------------------------------------------------
-# ------------------------------------------ CONFIGURATION BLOCK --------------------------------------------------------------------
+#                                                    CONFIGURATION BLOCK 
 # -----------------------------------------------------------------------------------------------------------------------------------
 
 use_osvvm = True  # Enable OSVVM
@@ -33,10 +33,10 @@ uvvm_libraries = [
     # ---------- Protocol component model (often used with the VIP) ----------
     "bitvis_uart",                    # Synthesizable UART model (DUT-side) - for testing UART receivers/transmitters
     # ---------- Protocol-specific Verification IPs (VIPs) -----------
-    "bitvis_vip_uart",                # UART VIP - for stimulating and monitoring UART interfaces
-    "bitvis_vip_sbi",                 # Simple Bus Interface VIP - for interacting with simple memory-mapped buses
-    "bitvis_vip_gpio",                # GPIO VIP - for verifying general-purpose digital I/O
-    "bitvis_vip_i2c",                 # I2C protocol VIP - master/slave transactions
+    #"bitvis_vip_uart",                # UART VIP - for stimulating and monitoring UART interfaces
+    #"bitvis_vip_sbi",                 # Simple Bus Interface VIP - for interacting with simple memory-mapped buses
+    #"bitvis_vip_gpio",                # GPIO VIP - for verifying general-purpose digital I/O
+    #"bitvis_vip_i2c",                 # I2C protocol VIP - master/slave transactions
     #"bitvis_vip_axilite",             # AXI4-Lite VIP - for register access verification
     #"bitvis_vip_axi",                 # AXI4 VIP - full AXI protocol including burst transactions
     #"bitvis_vip_axistream",           # AXI-Stream VIP - for streaming data interfaces
@@ -55,7 +55,7 @@ uvvm_libraries = [
 ]
 
 # -----------------------------------------------------------------------------------------------------------------------------------
-#                                           DO NOT TOUCH ANYTHING BELOW THIS LINE !!!
+#                               DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING
 # -----------------------------------------------------------------------------------------------------------------------------------
 
 # Force GHDL as the simulator

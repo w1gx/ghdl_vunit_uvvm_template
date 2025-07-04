@@ -150,3 +150,9 @@ For additional information, refer to the following documentation links:
 - OSVVM: [OSVVM documentation](https://github.com/OSVVM/Documentation)
 - VUNIT: [VUnit documentation](https://vunit.github.io/)
 - GTKWave: [GTKWave documenation](https://gtkwave.sourceforge.net/gtkwave.pdf)
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE.TXT).
+
+You are free to use, modify, and distribute this software in accordance with the terms of the MIT license. See the [LICENSE](./LICENSE) file for details.

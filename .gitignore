@@ -1,0 +1,110 @@
+## ------------ Python Ignores ----------------
+.venv
+__pycache__
+
+## ----------- Vunit ignores -------------
+vunit_out
+
+## ----------- VS Code ignores -----------
+.vscode
+
+## -------------- UVVM ignores --------------
+UVVM_*.txt
+
+## ------------ ModelSim Ignores ----------------
+*.mti
+*.wlf
+wlf*
+*_stacktrace.vstf
+*.mpf
+_*
+transcript
+synlog.tcl
+
+## ----------- MacOS ignores ----------
+**/.DS_Store
+.DS_Store
+
+## ----------- IceCube ignores -----------
+**/*_Implmnt/*
+**/impl/**/*.log
+**/impl/**/*.log.bak
+
+## ------------ Diamond ignores ----------------
+**/impl1
+.recovery
+
+## ----------- IceCube ignores -----------
+vivado.jou
+vivado.log
+
+## ----------- Quartus Prime ignores -----------
+**/quartus/db
+**/quartus/incremental_db
+**/quartus/output_files
+**/quartus/simulation
+
+## ----------- Vivado ignores -----------
+**/xilinx/**/*.log
+**/xilinx/**/*.jou
+**/xilinx/**/*.rpt
+**/xilinx/**/*.vdi
+
+## bitstream
+**/xilinx/**/*.bit
+**/xilinx/**/*.bin
+**/xilinx/**/*.mcs
+**/xilinx/**/*.svf
+**/xilinx/**/*.image
+
+## netlist
+**/xilinx/**/*.edf
+**/xilinx/**/*.edif
+**/xilinx/**/*.vn
+**/xilinx/**/*.vm
+
+## SDF
+**/xilinx/**/*.sdf
+
+## sim dump
+**/xilinx/**/*.vcd
+**/xilinx/**/*.saif
+**/xilinx/**/*.tcf
+**/xilinx/**/*.wdb
+
+## others
+**/xilinx/**/unisims
+
+## C-files
+**/xilinx/**/*.elf
+!**/xilinx/bootloader.elf
+**/xilinx/**/*.a
+**/xilinx/**/*.sa
+**/xilinx/**/*.so
+**/xilinx/**/*.lib
+
+## dirs
+**/xilinx/**/*.cache/
+**/xilinx/**/*.hw/
+**/xilinx/**/*.ip_user_files/
+**/xilinx/**/*.runs/
+**/xilinx/**/*.sim/
+**/xilinx/**/*.tmp/
+
+###### for xilinx Vivado|ISE
+**/xilinx/**/.Xil/
+**/xilinx/**/.cache/
+**/xilinx/**/fsm_encoding.os
+**/xilinx/**/tab_*/
+**/xilinx/**/webtalk.*
+**/xilinx/**/vivado_pid*.str
+**/xilinx/**/hs_err_pid*
+**/xilinx/**/xelab.*
+**/xilinx/**/xsim.*
+**/xilinx/**/xvlog.*
+**/xilinx/**/*.cache
+**/xilinx/**/*.sim
+**/xilinx/**/*.runs
+**/xilinx/**/*.hw
+**/xilinx/**/*.backup.*
+**/xilinx/**/*.debug

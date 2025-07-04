@@ -1,0 +1,41 @@
+{
+    "name": "w1gx-ghdl",
+    "dockerFile": "Dockerfile",
+    "remoteUser": "ubuntu",
+    "runArgs": [
+        "--privileged"
+    ],
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            },
+            "extensions": [
+				"eamodio.gitlens",
+				"github.vscode-github-actions",
+				"DavidAnson.vscode-markdownlint",
+				"TakumiI.markdowntable",
+				"ms-vscode.hexeditor",
+				"ms-vscode-remote.remote-containers",
+				"bierner.markdown-preview-github-styles",
+                "vhdlwhiz.vhdl-by-vhdlwhiz",
+                "HaarigerHarald.vhdl-formatter-pp"
+			]
+        }
+    },
+
+    "mounts": [
+        {
+            "source": "/dev/bus/usb",
+            "target": "/dev/bus/usb", 
+            "type": "bind"
+        },
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/ubuntu/.ssh,consistency=cached,type=bind"
+    ],
+
+    "remoteEnv": {
+        "USER": "ubuntu"
+    }
+}
+

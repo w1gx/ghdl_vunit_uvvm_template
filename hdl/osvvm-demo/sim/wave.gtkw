@@ -1,0 +1,8 @@
+[dumpfile] wave.ghw
+[timescale] 1 ns
+[opt] 0
+[sst_expanded] 0
+[sst_width] 200
+[sst_vpaned_height] 300
+[treeopen] /
+[sst_signal] clk

@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Thu Jul  3 21:07:35 2025
+[*]
+[dumpfile] "/workspaces/uvvm-test/hdl/uvvm-demo/sim/wave.ghw"
+[dumpfile_mtime] "Thu Jul  3 21:07:14 2025"
+[dumpfile_size] 1824
+[savefile] "/workspaces/uvvm-test/hdl/uvvm-demo/sim/wave.gtkw"
+[timestart] 820000
+[size] 2442 1122
+[pos] -1 -1
+*-24.195377 127600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[sst_width] 276
+[signals_width] 110
+[sst_expanded] 1
+[sst_vpaned_height] 647
+@28
+top.uvvm_logger_tb.clk100m
+top.uvvm_logger_tb.clk100m_60
+@29
+top.uvvm_logger_tb.clk50m
+[pattern_trace] 1
+[pattern_trace] 0

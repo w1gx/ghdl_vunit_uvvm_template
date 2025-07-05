@@ -20,8 +20,19 @@
 				"ms-vscode-remote.remote-containers",
 				"bierner.markdown-preview-github-styles",
                 "vhdlwhiz.vhdl-by-vhdlwhiz",
-                "HaarigerHarald.vhdl-formatter-pp"
+                "Vinrobot.vhdl-formatter"
 			]
+        },
+        "vhdl.formatter": {
+            "settings": {
+                "indentation": 1,
+                "align.all": true,
+                "case.keywords": "LowerCase",
+                "case.typenames": "UpperCase",
+                "newline.generic": "None",
+                "newline.then": false,
+                "newline.else": true
+            }
         }
     },
 
@@ -38,4 +49,3 @@
         "USER": "ubuntu"
     }
 }
-

@@ -3,6 +3,8 @@
 # Author: Martin Mauersberg (W1GX)
 # Last updated: July 2025
 #
+# Taken from https://github.com/w1gx/ghdl_vunit_uvvm_template
+#
 # This script configures and runs VUnit simulations with GHDL, supporting advanced verification
 # using UVVM and OSVVM modules. Customize the configuration section as needed for your project.
 # -------------------------------------------------------------------------------------------------
@@ -33,14 +35,14 @@ uvvm_libraries = [
     # ---------- Protocol component model (often used with the VIP) ----------
     "bitvis_uart",                    # Synthesizable UART model (DUT-side) - for testing UART receivers/transmitters
     # ---------- Protocol-specific Verification IPs (VIPs) -----------
-    #"bitvis_vip_uart",                # UART VIP - for stimulating and monitoring UART interfaces
+    "bitvis_vip_uart",                # UART VIP - for stimulating and monitoring UART interfaces
     #"bitvis_vip_sbi",                 # Simple Bus Interface VIP - for interacting with simple memory-mapped buses
     #"bitvis_vip_gpio",                # GPIO VIP - for verifying general-purpose digital I/O
     #"bitvis_vip_i2c",                 # I2C protocol VIP - master/slave transactions
     #"bitvis_vip_axilite",             # AXI4-Lite VIP - for register access verification
     #"bitvis_vip_axi",                 # AXI4 VIP - full AXI protocol including burst transactions
     #"bitvis_vip_axistream",           # AXI-Stream VIP - for streaming data interfaces
-    #"bitvis_vip_clock_generator",     # VIP for generating clocks with configurable frequency and jitter
+    "bitvis_vip_clock_generator",     # VIP for generating clocks with configurable frequency and jitter
     #"bitvis_vip_error_injection",     # Injects protocol-level or timing errors to test robustness
     #"bitvis_vip_ethernet",            # Ethernet MAC-level protocol VIP
     #"bitvis_vip_gmii",                # VIP for GMII (Gigabit Media Independent Interface)
@@ -58,18 +60,25 @@ uvvm_libraries = [
 #                               DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING
 # -----------------------------------------------------------------------------------------------------------------------------------
 
-# Force GHDL as the simulator
-os.environ["VUNIT_SIMULATOR"] = "ghdl"
+# ---------------------------------------------- COMPILER FLAGS ---------------------------------------------------------------------
+ghdl_flags = ["-frelaxed", "-frelaxed-rules", "-Wno-hide", "-Wno-shared"]
+modelsim_flags = ["-2008"]
 
-
+# ---------------------------------------------- VUNIT SETUP ------------------------------------------------------------------------
 # Define VUnit object
 vu = VUnit.from_argv(compile_builtins=False)
 vu.add_vhdl_builtins()
 vu.add_com()
+simulator = vu.get_simulator_name()
+print(f"VHDL Simulator: {simulator}")
 
-vu.set_compile_option(
-    "ghdl.a_flags", ["-frelaxed", "-frelaxed-rules", "-Wno-hide"], allow_empty=True
-)
+# Simulator-specific options
+if simulator == "ghdl":
+    vu.set_compile_option("ghdl.a_flags", ghdl_flags, allow_empty=True)
+elif simulator in ["modelsim", "questa"]:
+    vu.set_compile_option("modelsim.vcom_flags", modelsim_flags, allow_empty=True)
+else:
+    raise Exception(f"Unsupported simulator: {simulator}")
 
 # ------------------------------------------------ OSVVM ----------------------------------------------------------------------------
 if use_osvvm:
@@ -142,40 +151,22 @@ if use_uvvm:
                 lib = added_uvvm_libraries[target_lib]
 
             # Add the file to the correct library
-            lib.set_compile_option(
-                "ghdl.a_flags",
-                ["-frelaxed", "-frelaxed-rules", "-Wno-shared", "-Wno-hide"],
-                allow_empty=True,
-            )
             lib.add_source_files(str(source_path), vhdl_standard="2008")
-            lib.set_compile_option(
-                "ghdl.a_flags",
-                ["-frelaxed", "-frelaxed-rules", "-Wno-shared", "-Wno-hide"],
-                allow_empty=True,
-            )
+            
+            # Set compile options for the library based on the simulator
+            if simulator == "ghdl":
+                lib.set_compile_option("ghdl.a_flags", ghdl_flags, allow_empty=True)
+            elif simulator in ["modelsim", "questa"]:
+                lib.set_compile_option("modelsim.vcom_flags", modelsim_flags, allow_empty=True)
+            else:
+                raise Exception(f"Unsupported simulator: {simulator}")
+            
 
-# --------------------------------------- DESIGN AND TEST BENCH ---------------------------------------------------------------------
-lib_main = vu.add_library("main")
-lib_main.add_source_files(f"{HDL_PATH}/**/*.vhd", vhdl_standard="2008")
-lib_main.set_compile_option(
-    "ghdl.a_flags", ["-frelaxed", "-Wno-hide", "-Wno-shared"], allow_empty=True
-)
-main_files = list(Path(HDL_PATH).rglob("*.vhd"))
-if not main_files:
-    print(f"Warning: No HDL files found under '{HDL_PATH}/'")
-
-# Set up GTKWave for each test bench
-gtkwave_tabs = []
-for tb in lib_main.get_test_benches():
-
-    tb_entity_name = tb._test_bench.design_unit.name  # Entity name
+# --------------------------------------- GTKWave (GHDL only) -----------------------------------------------------------------------
+def configure_ghdl_waveform(tb, tb_folder, gtkwave_tabs):
+    tb_entity_name = tb._test_bench.design_unit.name
     if print_debug_messages:
         print("Setting up GTKWave for ", tb_entity_name)
-
-    tb_folder = os.path.join(
-        os.path.dirname(tb._test_bench.design_unit.file_name), "sim"
-    )
-    os.makedirs(tb_folder, exist_ok=True)
 
     wave_file = os.path.join(tb_folder, "wave.ghw")
     gtkw_file = os.path.join(tb_folder, "wave.gtkw")
@@ -184,17 +175,12 @@ for tb in lib_main.get_test_benches():
         print(f"Configuring waveform output for testbench: {tb.name}")
         print(f"  → waveform file: {wave_file}")
         print(f"  → GTKWave config: {gtkw_file}")
-        print(
-            f"  → GTKWave command: gtkwave {wave_file} {gtkw_file}"
-            if os.path.exists(gtkw_file)
-            else f"  → GTKWave command: gtkwave {wave_file}"
-        )
+        print(f"  → GTKWave command: gtkwave {wave_file} {gtkw_file}" if os.path.exists(gtkw_file)
+              else f"  → GTKWave command: gtkwave {wave_file}")
 
-    # Set simulation flags
     tb.set_sim_option("ghdl.elab_flags", ["--std=08", "-frelaxed"])
     tb.set_sim_option("ghdl.sim_flags", [f"--wave={wave_file}"])
 
-    # Create minimal GTKWave layout if missing
     if not os.path.exists(gtkw_file):
         print(f"  → Creating minimal GTKWave layout with clock signal")
         with open(gtkw_file, "w") as f:
@@ -208,15 +194,57 @@ for tb in lib_main.get_test_benches():
             f.write("[sst_signal] clk\n")
 
     gtkwave_tabs.append(f"gtkwave {wave_file} {gtkw_file}  # {tb.name}")
+    
+# --------------------------------------- ModeSim wave (Questa/Modelsim) --------------------------------------------------------------    
+def configure_modelSim_waveform(tb, tb_folder):
+    if print_debug_messages:
+        print("Setting up modelsim wave for ", tb_entity_name)
+    wave_file = os.path.join(tb_folder, 'wave.do')
+    if os.path.isfile(wave_file):
+        tb.set_sim_option("modelsim.init_file.gui", wave_file)
+ 
+    # Don't optimize away unused signals when running in GUI mode
+    tb.set_sim_option("modelsim.vsim_flags.gui", ["-voptargs=+acc"])
+
+# --------------------------------------- DESIGN AND TEST BENCH ---------------------------------------------------------------------
+lib_main = vu.add_library("main")
+lib_main.add_source_files(f"{HDL_PATH}/**/*.vhd", vhdl_standard="2008")
+# Set the main library compile options based on the simulator
+if simulator == "ghdl":
+    lib_main.set_compile_option("ghdl.a_flags", ghdl_flags, allow_empty=True)
+elif simulator in ["modelsim", "questa"]:
+    lib_main.set_compile_option("modelsim.vcom_flags", modelsim_flags, allow_empty=True)
+else:
+    raise Exception(f"Unsupported simulator: {simulator}")
+
+main_files = list(Path(HDL_PATH).rglob("*.vhd"))
+if not main_files:
+    print(f"Warning: No HDL files found under '{HDL_PATH}/'")
+
+# Set up simulation options for all test benches
+gtkwave_tabs = []
+for tb in lib_main.get_test_benches():
+
+    tb_entity_name = tb._test_bench.design_unit.name  # Entity name
+
+    tb_folder = os.path.join(os.path.dirname(tb._test_bench.design_unit.file_name), "sim")
+    os.makedirs(tb_folder, exist_ok=True)
+
+    if simulator == "ghdl":
+        configure_ghdl_waveform(tb, tb_folder, gtkwave_tabs)
+    elif simulator in ["modelsim", "questa"]:
+        configure_modelSim_waveform(tb, tb_folder)
+ 
 
 # Create batch script for GTKWave sessions
-session_file = "gtkwave_sessions.sh"
-if print_debug_messages:
-    print(f"\nGenerating tabbed GTKWave session: {session_file}")
-with open(session_file, "w") as f:
-    f.write("# GTKWave commands for all test benches\n")
-    for entry in gtkwave_tabs:
-        f.write(entry + "\n")
+if simulator == "ghdl":
+    session_file = "gtkwave_sessions.sh"
+    if print_debug_messages:
+        print(f"\nGenerating tabbed GTKWave session: {session_file}")
+    with open(session_file, "w") as f:
+        f.write("# GTKWave commands for all test benches\n")
+        for entry in gtkwave_tabs:
+            f.write(entry + "\n")
 
 # Run all tests
 vu.main()

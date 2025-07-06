@@ -17,21 +17,19 @@ end entity;
 
 architecture sim of uvvm_logger_tb is
 
-  signal clk100M : std_logic;
-  signal clk100M_60 : std_logic;
-  signal clk100M_ena  : boolean := true;
+  signal clk100M     : std_logic;
+  signal clk100M_60  : std_logic;
+  signal clk100M_ena : boolean := true;
 
-  signal clk50M : std_logic;
+  signal clk50M     : std_logic;
   signal clk50M_ena : boolean := true;
 
-  begin
+begin
 
-
---    uvvm_util.methods_pkg.clock_generator(clk100M, clk100M_ena, 10 ns, "100 MHz with 60% duty cycle", 60);
-    clock_generator(clk100M_60, clk100M_ena, 10 ns, "100 MHz with 60% duty cycle", 60);
-    clock_generator(clk100M, clk100M_ena, 10 ns, "100 MHz");
-    clock_generator(clk50M, clk50M_ena, 20 ns, "50 MHz");
-
+  --    uvvm_util.methods_pkg.clock_generator(clk100M, clk100M_ena, 10 ns, "100 MHz with 60% duty cycle", 60);
+  clock_generator(clk100M_60, clk100M_ena, 10 ns, "100 MHz with 60% duty cycle", 60);
+  clock_generator(clk100M, clk100M_ena, 10 ns, "100 MHz");
+  clock_generator(clk50M, clk50M_ena, 20 ns, "50 MHz");
 
   process
     variable test_val1 : integer := 42;

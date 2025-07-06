@@ -56,13 +56,13 @@ uvvm_libraries = [
     #"bitvis_vip_rgmii",               # VIP for RGMII (Reduced Gigabit Media Independent Interface)
 ]
 
-# -----------------------------------------------------------------------------------------------------------------------------------
-#                               DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING
-# -----------------------------------------------------------------------------------------------------------------------------------
-
 # ---------------------------------------------- COMPILER FLAGS ---------------------------------------------------------------------
 ghdl_flags = ["-frelaxed", "-frelaxed-rules", "-Wno-hide", "-Wno-shared"]
 modelsim_flags = ["-2008"]
+
+# -----------------------------------------------------------------------------------------------------------------------------------
+#                               DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING
+# -----------------------------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------------- VUNIT SETUP ------------------------------------------------------------------------
 # Define VUnit object
@@ -205,7 +205,35 @@ def configure_modelSim_waveform(tb, tb_folder):
  
     # Don't optimize away unused signals when running in GUI mode
     tb.set_sim_option("modelsim.vsim_flags.gui", ["-voptargs=+acc"])
+    # Add coverage and optimization flags for ModelSim
+    #tb.set_sim_option("modelsim.vsim_flags", ["-coverage", "-voptargs=+acc"])
+    
+ # --------------------------------------- Generate vhdl_ls.toml for vhdl_ls ---------------------------------------------------------    
+def generate_project_toml(vunit_object):
+    desired_libs = {"vunit_lib", "osvvm"}
+    libs = {}
 
+    for lib in vunit_object.get_libraries():
+        if lib.name in desired_libs:
+            libs[lib.name] = [file.name for file in lib.get_source_files(allow_empty=True)]
+
+    project_toml = [
+        f'standard = "{vunit_object.vhdl_standard}"',
+        "[libraries]",
+    ]
+    for lib, files in libs.items():
+        project_toml.append(f"{lib}.files = [")
+        for file in files:
+            project_toml.append(f'  "{file}",')
+        project_toml.append("]")
+    project_toml.append("[lint]")
+    project_toml.append("unused = 'error'")
+    project_toml.append("unnecessary_work_library = false")
+
+    with open("vhdl_ls_vunit.toml", "w") as f:
+        f.write("\n".join(project_toml))
+
+    
 # --------------------------------------- DESIGN AND TEST BENCH ---------------------------------------------------------------------
 lib_main = vu.add_library("main")
 lib_main.add_source_files(f"{HDL_PATH}/**/*.vhd", vhdl_standard="2008")
@@ -214,6 +242,7 @@ if simulator == "ghdl":
     lib_main.set_compile_option("ghdl.a_flags", ghdl_flags, allow_empty=True)
 elif simulator in ["modelsim", "questa"]:
     lib_main.set_compile_option("modelsim.vcom_flags", modelsim_flags, allow_empty=True)
+    
 else:
     raise Exception(f"Unsupported simulator: {simulator}")
 
@@ -246,5 +275,7 @@ if simulator == "ghdl":
         for entry in gtkwave_tabs:
             f.write(entry + "\n")
 
+
+generate_project_toml(vu)
 # Run all tests
 vu.main()

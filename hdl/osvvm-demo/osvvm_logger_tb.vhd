@@ -1,14 +1,14 @@
 library ieee;
-  use ieee.std_logic_1164.all;
-  use ieee.numeric_std.all;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library vunit_lib;
-  context vunit_lib.vunit_context;
-  context vunit_lib.com_context;
+context vunit_lib.vunit_context;
+context vunit_lib.com_context;
 
 -- OSVVM
 library osvvm;
-  use osvvm.AlertLogPkg.all;
+use osvvm.AlertLogPkg.all;
 
 entity osvvm_logger_tb is
   generic (runner_cfg : string);

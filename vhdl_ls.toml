@@ -1,0 +1,182 @@
+standard = "2008"
+
+[libraries]
+# --- Default library
+default_lib.files = ['hdl/**/*.vhd']
+
+# --- VUNIT
+vunit_lib.files = [
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/dict_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/dict_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/queue_pool_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/integer_vector_ptr_pool_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/data_types_private_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/event_private_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/dict_pkg-2008p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/codec-2008p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/string_ptr_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-2002p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/integer_vector_ptr_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/types.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/string_ptr_pkg-body-2002p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/event_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/integer_array_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/queue_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/codec_builder-2008p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/queue_pkg-2008p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/id_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/codec_builder.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/string_ptr_pool_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/event_common_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/integer_array_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/data_types_context.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/codec.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/queue_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/byte_vector_ptr_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/api/external_string_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/api/external_integer_vector_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/location_pkg-body-2008m.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/log_deprecated_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/logger_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/log_handler_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/ansi_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/location_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/print_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/logger_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/file_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/print_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/log_handler_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/log_levels_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/logging/src/log_levels_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/vunit_run_context.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/vunit_context.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/core/src/core_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/core/src/stop_body_2008p.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/core/src/stop_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/string_ops/src/string_ops.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/check/src/checker_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/check/src/checker_pkg-body.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/check/src/check.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/check/src/check_api.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/check/src/check_deprecated_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/dictionary/src/dictionary.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/run/src/runner_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/run/src/run_deprecated_pkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/run/src/run_types.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/run/src/run_api.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/run/src/run.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/path/src/path.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_deprecated.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_context.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_string.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_support.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_debug_codec_builder.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_api.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_messenger.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_types.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/com/src/com_common.vhd",
+]
+vunit_lib.is_third_party = true
+
+
+osvvm.files = [
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ScoreboardPkg_slv.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/TextUtilPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/RandomProcedurePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/CoveragePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/RandomBasePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/MessagePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ScoreboardPkg_int.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/OsvvmGlobalPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/SortListPkg_int.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/NamePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/TbUtilPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/RandomPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ResizePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ScoreboardGenericPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/NameStorePkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/MessageListPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/TranscriptPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ReportPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/VendorCovApiPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/OsvvmContext.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ResolutionPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/AlertLogPkg.vhd",
+  "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/MemoryPkg.vhd",
+]
+osvvm.is_third_party = true
+
+# -- UVVM
+uvvm_util.files = ['/opt/uvvm/uvvm_util/**/*.vhd']
+uvvm_util.is_third_party = true
+
+uvvm_vvc_framework.files = ['/opt/uvvm/uvvm_vvc_framework/src/*.vhd']
+uvvm_vvc_framework.is_third_party = true
+
+bitvis_vip_avalon_mm.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_avalon_mm/**/*.vhd']
+bitvis_vip_avalon_mm.is_third_party = true
+
+bitvis_vip_avalon_st.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_avalon_st/**/*.vhd']
+bitvis_vip_avalon_st.is_third_party = true
+
+bitvis_vip_axi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axi/**/*.vhd']
+bitvis_vip_axi.is_third_party = true
+
+bitvis_vip_axilite.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axilite/**/*.vhd']
+bitvis_vip_axilite.is_third_party = true
+
+bitvis_vip_axistream.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axistream/**/*.vhd']
+bitvis_vip_axistream.is_third_party = true
+
+bitvis_vip_clock_generator.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_clock_generator/**/*.vhd']
+bitvis_vip_clock_generator.is_third_party = true
+
+bitvis_vip_error_injection.files = ['/opt/uvvm/bitvis_vip_error_injection/**/*.vhd']
+bitvis_vip_error_injection.is_third_party = true
+
+bitvis_vip_ethernet.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_ethernet/**/*.vhd']
+bitvis_vip_ethernet.is_third_party = true
+
+bitvis_vip_gmii.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_gmii/**/*.vhd']
+bitvis_vip_gmii.is_third_party = true
+
+bitvis_vip_gpio.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_gpio/**/*.vhd']
+bitvis_vip_gpio.is_third_party = true
+
+bitvis_vip_hvvc_to_vvc_bridge.files = ['/opt/uvvm/bitvis_vip_hvvc_to_vvc_bridge/**/*.vhd']
+bitvis_vip_hvvc_to_vvc_bridge.is_third_party = true
+
+bitvis_vip_i2c.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_i2c/**/*.vhd']
+bitvis_vip_i2c.is_third_party = true
+
+bitvis_vip_rgmii.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_rgmii/**/*.vhd']
+bitvis_vip_rgmii.is_third_party = true
+
+bitvis_vip_sbi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_sbi/**/*.vhd']
+bitvis_vip_sbi.is_third_party = true
+
+bitvis_vip_spec_cov.files = ['/opt/uvvm/bitvis_vip_spec_cov/src/*.vhd']
+bitvis_vip_spec_cov.is_third_party = true
+
+bitvis_vip_scoreboard.files = ['/opt/uvvm/bitvis_vip_scoreboard/**/*.vhd']
+bitvis_vip_scoreboard.is_third_party = true
+
+bitvis_vip_spi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_spi/**/*.vhd']
+bitvis_vip_spi.is_third_party = true
+
+bitvis_vip_uart.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_uart/**/*.vhd']
+bitvis_vip_uart.is_third_party = true
+
+bitvis_uart.files = ['/opt/uvvm/bitvis_uart/**/*.vhd']
+bitvis_uart.is_third_party = true
+
+bitvis_irqc.files = ['/opt/uvvm/bitvis_irqc/**/*.vhd']
+bitvis_irqc.is_third_party = true
+
+
+
+[diagnostics]
+enable = false
+style_checks = false
+warnings = false

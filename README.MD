@@ -250,7 +250,7 @@ VHDL LS provides a VHDL language server, which in turn enables syntax-checking, 
 that improve productivity. It is available as an extension in VSCode and works out of the box.
 
 The only thing that needs to be configured are the libraries that it has access to. This configuration takes place in the file [vhdl_ls.toml](./vhdl_ls.toml). The UVMM libraries are straight-forward (usually in /opt/uvvm), but VUnit and the included OSVVM files are a bit more tricky, as they depend on how VUnit was installed.
-The solution to this is that the run.py script creates a file 'vhdl_ls_vunit.toml', which contains the libraries and locations of the project for both VUnit and OSVVM. These two sections from this file can then be copied into `vhdl_ls.toml`
+The solution to this is that the run.py script creates a file 'vhdl_ls.toml', which contains the libraries and locations of the project all libraries that are used in the project.
 
 ## Documentation
 

@@ -1,10 +1,8 @@
 standard = "2008"
 
-[libraries]
-# --- Default library
-default_lib.files = ['hdl/**/*.vhd']
+project.files = ["hdl/**/*.vhd"]
 
-# --- VUNIT
+[libraries]
 vunit_lib.files = [
   "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/dict_pkg-body.vhd",
   "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/data_types/src/dict_pkg.vhd",
@@ -79,7 +77,6 @@ vunit_lib.files = [
 ]
 vunit_lib.is_third_party = true
 
-
 osvvm.files = [
   "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/ScoreboardPkg_slv.vhd",
   "../../usr/local/lib/python3.12/dist-packages/vunit/vhdl/osvvm/TextUtilPkg.vhd",
@@ -107,74 +104,90 @@ osvvm.files = [
 ]
 osvvm.is_third_party = true
 
-# -- UVVM
-uvvm_util.files = ['/opt/uvvm/uvvm_util/**/*.vhd']
+uvvm_util.files = [
+  "../../opt/uvvm/uvvm_util/src/types_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/adaptations_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/string_methods_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/protected_types_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/global_signals_and_shared_variables_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/hierarchy_linked_list_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/alert_hierarchy_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/license_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/methods_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/bfm_common_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/generic_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/data_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/data_fifo_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/data_stack_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/rand_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/func_cov_pkg.vhd",
+  "../../opt/uvvm/uvvm_util/src/uvvm_util_context.vhd",
+]
 uvvm_util.is_third_party = true
 
-uvvm_vvc_framework.files = ['/opt/uvvm/uvvm_vvc_framework/src/*.vhd']
+uvvm_vvc_framework.files = [
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_protected_types_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_vvc_framework_support_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_generic_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_data_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_data_fifo_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_data_stack_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_uvvm_engine.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src/ti_vvc_framework_context.vhd",
+]
 uvvm_vvc_framework.is_third_party = true
 
-bitvis_vip_avalon_mm.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_avalon_mm/**/*.vhd']
-bitvis_vip_avalon_mm.is_third_party = true
-
-bitvis_vip_avalon_st.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_avalon_st/**/*.vhd']
-bitvis_vip_avalon_st.is_third_party = true
-
-bitvis_vip_axi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axi/**/*.vhd']
-bitvis_vip_axi.is_third_party = true
-
-bitvis_vip_axilite.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axilite/**/*.vhd']
-bitvis_vip_axilite.is_third_party = true
-
-bitvis_vip_axistream.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_axistream/**/*.vhd']
-bitvis_vip_axistream.is_third_party = true
-
-bitvis_vip_clock_generator.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_clock_generator/**/*.vhd']
-bitvis_vip_clock_generator.is_third_party = true
-
-bitvis_vip_error_injection.files = ['/opt/uvvm/bitvis_vip_error_injection/**/*.vhd']
-bitvis_vip_error_injection.is_third_party = true
-
-bitvis_vip_ethernet.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_ethernet/**/*.vhd']
-bitvis_vip_ethernet.is_third_party = true
-
-bitvis_vip_gmii.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_gmii/**/*.vhd']
-bitvis_vip_gmii.is_third_party = true
-
-bitvis_vip_gpio.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_gpio/**/*.vhd']
-bitvis_vip_gpio.is_third_party = true
-
-bitvis_vip_hvvc_to_vvc_bridge.files = ['/opt/uvvm/bitvis_vip_hvvc_to_vvc_bridge/**/*.vhd']
-bitvis_vip_hvvc_to_vvc_bridge.is_third_party = true
-
-bitvis_vip_i2c.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_i2c/**/*.vhd']
-bitvis_vip_i2c.is_third_party = true
-
-bitvis_vip_rgmii.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_rgmii/**/*.vhd']
-bitvis_vip_rgmii.is_third_party = true
-
-bitvis_vip_sbi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_sbi/**/*.vhd']
-bitvis_vip_sbi.is_third_party = true
-
-bitvis_vip_spec_cov.files = ['/opt/uvvm/bitvis_vip_spec_cov/src/*.vhd']
-bitvis_vip_spec_cov.is_third_party = true
-
-bitvis_vip_scoreboard.files = ['/opt/uvvm/bitvis_vip_scoreboard/**/*.vhd']
+bitvis_vip_scoreboard.files = [
+  "../../opt/uvvm/bitvis_vip_scoreboard/src/generic_sb_support_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_scoreboard/src/generic_sb_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_scoreboard/src/predefined_sb.vhd",
+]
 bitvis_vip_scoreboard.is_third_party = true
 
-bitvis_vip_spi.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_spi/**/*.vhd']
-bitvis_vip_spi.is_third_party = true
-
-bitvis_vip_uart.files = ['/opt/uvvm/uvvm_vvc_framework/src_target_dependent/*.vhd', '/opt/uvvm/bitvis_vip_uart/**/*.vhd']
-bitvis_vip_uart.is_third_party = true
-
-bitvis_uart.files = ['/opt/uvvm/bitvis_uart/**/*.vhd']
+bitvis_uart.files = [
+  "../../opt/uvvm/bitvis_uart/src/uart_pkg.vhd",
+  "../../opt/uvvm/bitvis_uart/src/uart_pif_pkg.vhd",
+  "../../opt/uvvm/bitvis_uart/src/uart_pif.vhd",
+  "../../opt/uvvm/bitvis_uart/src/uart_core.vhd",
+  "../../opt/uvvm/bitvis_uart/src/uart.vhd",
+]
 bitvis_uart.is_third_party = true
 
-bitvis_irqc.files = ['/opt/uvvm/bitvis_irqc/**/*.vhd']
-bitvis_irqc.is_third_party = true
+bitvis_vip_uart.files = [
+  "../../opt/uvvm/bitvis_vip_uart/src/uart_bfm_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/transaction_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/vvc_cmd_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/monitor_cmd_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_target_support_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_vvc_framework_common_methods_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/vvc_sb_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/vvc_methods_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_vvc_entity_support_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/uart_rx_vvc.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/uart_tx_vvc.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/uart_vvc.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/uart_monitor.vhd",
+  "../../opt/uvvm/bitvis_vip_uart/src/vvc_context.vhd",
+]
+bitvis_vip_uart.is_third_party = true
 
+bitvis_vip_clock_generator.files = [
+  "../../opt/uvvm/bitvis_vip_clock_generator/src/vvc_cmd_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_target_support_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_vvc_framework_common_methods_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_clock_generator/src/vvc_methods_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_queue_pkg.vhd",
+  "../../opt/uvvm/uvvm_vvc_framework/src_target_dependent/td_vvc_entity_support_pkg.vhd",
+  "../../opt/uvvm/bitvis_vip_clock_generator/src/clock_generator_vvc.vhd",
+  "../../opt/uvvm/bitvis_vip_clock_generator/src/vvc_context.vhd",
+]
+bitvis_vip_clock_generator.is_third_party = true
 
+main.files = [
+  "hdl/uvvm-demo/uvvm_logger_tb.vhd",
+  "hdl/osvvm-demo/osvvm_logger_tb.vhd",
+]
 
 [diagnostics]
 enable = false

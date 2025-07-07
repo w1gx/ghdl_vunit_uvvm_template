@@ -12,6 +12,7 @@
 import os
 from vunit import VUnit
 from pathlib import Path
+import re
 
 # -----------------------------------------------------------------------------------------------------------------------------------
 #                                                    CONFIGURATION BLOCK 
@@ -209,31 +210,62 @@ def configure_modelSim_waveform(tb, tb_folder):
     #tb.set_sim_option("modelsim.vsim_flags", ["-coverage", "-voptargs=+acc"])
     
  # --------------------------------------- Generate vhdl_ls.toml for vhdl_ls ---------------------------------------------------------    
-def generate_project_toml(vunit_object):
-    desired_libs = {"vunit_lib", "osvvm"}
+import re
+from pathlib import Path
+
+def generate_vhdl_ls_toml(vunit_object):
+    third_party_prefixes = ("uvvm", "bitvis_")
+    third_party_explicit = {"vunit_lib", "osvvm"}
+
+    # Collect all libraries and their source files
     libs = {}
-
     for lib in vunit_object.get_libraries():
-        if lib.name in desired_libs:
-            libs[lib.name] = [file.name for file in lib.get_source_files(allow_empty=True)]
+        libs[lib.name] = [file.name for file in lib.get_source_files(allow_empty=True)]
 
-    project_toml = [
-        f'standard = "{vunit_object.vhdl_standard}"',
-        "[libraries]",
-    ]
+    # Read existing [diagnostics] section if present
+    diagnostics_block = []
+    if Path("vhdl_ls.toml").exists():
+        lines = Path("vhdl_ls.toml").read_text().splitlines()
+        inside_diag = False
+        for line in lines:
+            if line.strip() == "[diagnostics]":
+                inside_diag = True
+                diagnostics_block.append(line)
+                continue
+            if inside_diag:
+                if line.strip().startswith("[") and not line.strip().startswith("[diagnostics]"):
+                    break  # reached next section
+                diagnostics_block.append(line)
+
+    # Build new TOML lines
+    toml_lines = []
+    toml_lines.append('standard = "2008"\n')
+    toml_lines.append('project.files = ["hdl/**/*.vhd"]\n')
+    toml_lines.append("[libraries]")
+
     for lib, files in libs.items():
-        project_toml.append(f"{lib}.files = [")
+        toml_lines.append(f"{lib}.files = [")
         for file in files:
-            project_toml.append(f'  "{file}",')
-        project_toml.append("]")
-    project_toml.append("[lint]")
-    project_toml.append("unused = 'error'")
-    project_toml.append("unnecessary_work_library = false")
+            toml_lines.append(f'  "{file}",')
+        toml_lines.append("]")
+        if lib in third_party_explicit or lib.startswith(third_party_prefixes):
+            toml_lines.append(f"{lib}.is_third_party = true")
+        toml_lines.append("")  # blank line between libraries
 
-    with open("vhdl_ls_vunit.toml", "w") as f:
-        f.write("\n".join(project_toml))
+    # Append diagnostics block
+    if diagnostics_block:
+        toml_lines.extend(diagnostics_block)
+    else:
+        toml_lines.append("[diagnostics]")
+        toml_lines.append("enable = false")
+        toml_lines.append("style_checks = false")
+        toml_lines.append("warnings = false")
+    toml_lines.append("")  # trailing newline
 
-    
+    # Write updated TOML
+    Path("vhdl_ls.toml").write_text("\n".join(toml_lines))
+
+
 # --------------------------------------- DESIGN AND TEST BENCH ---------------------------------------------------------------------
 lib_main = vu.add_library("main")
 lib_main.add_source_files(f"{HDL_PATH}/**/*.vhd", vhdl_standard="2008")
@@ -276,6 +308,6 @@ if simulator == "ghdl":
             f.write(entry + "\n")
 
 
-generate_project_toml(vu)
+generate_vhdl_ls_toml(vu)
 # Run all tests
 vu.main()

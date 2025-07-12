@@ -5,6 +5,10 @@ __pycache__
 ## ----------- Vunit ignores -------------
 vunit_out
 gtkwave_sessions.sh
+vhdl_ls.toml
+
+## -------------- Verilog ignores --------
+verilog_build
 
 ## ----------- VS Code ignores -----------
 .vscode

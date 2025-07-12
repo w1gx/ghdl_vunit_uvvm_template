@@ -252,6 +252,11 @@ that improve productivity. It is available as an extension in VSCode and works o
 The only thing that needs to be configured are the libraries that it has access to. This configuration takes place in the file [vhdl_ls.toml](./vhdl_ls.toml). The UVMM libraries are straight-forward (usually in /opt/uvvm), but VUnit and the included OSVVM files are a bit more tricky, as they depend on how VUnit was installed.
 The solution to this is that the run.py script creates a file 'vhdl_ls.toml', which contains the libraries and locations of the project all libraries that are used in the project.
 
+## Verilog (outside of Vunit)
+
+To enable testing with Verilog, iverilog can be used. The script [vcompile.sh](./vcompile.sh) has been included, which looks through all subfolders of `hdl` and compiles all '*_tb.v' testbenches into the [verilog_build](./verilog_build) folder.
+From there, the testbenches can we run with `vvp <testbench-name>.out`
+
 ## Documentation
 
 For additional information, refer to the following documentation links:

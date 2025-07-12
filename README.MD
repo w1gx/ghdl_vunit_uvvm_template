@@ -60,9 +60,9 @@ This framework serves as a starting point for any VHDL project requiring structu
 
 ## Quick Start
 
-This project includes a fully configured **DevContainer for VSCode**, built on the Docker image `w1gx/ghdl-env:v0.3`, which includes GHDL, UVVM, and Python with VUnit.  
+This project includes a fully configured **DevContainer for VSCode**, built on the Docker image `w1gx/ghdl-env:v0.5`, which includes GHDL, UVVM, and Python with VUnit.  
 
-This project setup can be used in two ways:
+This project setup can be used in three ways:
 
 ### Option A: Using VSCode with DevContainers
 
@@ -77,7 +77,36 @@ The devcontainer can be configured by editing the [devcontainer.json](./.devcont
   <strong>Note:</strong> The first time a container starts takes very long, as the docker image will have to be downloaded and run. Subsequent runs are much faster.
 </div>  
 
-### Option B: Manual Setup
+### Option B: Using a Docker Container
+
+The docker image `w1gx/ghdl-env:v0.5` provides everything to work with this repository. After cloning, run the docker container and mount the current folder as follows:
+
+
+```sh
+docker run -it -u $(id -u):$(id -g) -v "$(pwd)":/work -w /work w1gx/ghdl-env:latest
+```
+
+where `-u $(id -u):$(id -g)` sets the UID and GID to match your host user, and
+`-v "$(pwd)":/work` mounts the current folder, which is set to /work within the docker container.
+
+For X11 support, run it as follows:
+
+```sh
+docker run -it -u $(id -u):$(id -g)\
+    -v "$(pwd)":/work \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=$DISPLAY \
+    -w /work \
+    w1gx/ghdl-env:latest
+```
+
+<div style="background-color: #fff9c4; border-left: 6px solid #ffeb3b; color: #000; padding: 16px; margin: 2em 0;">
+  <strong>Note:</strong> Make sure to allow docker on the host system with <code>xhost +local:docker</code>
+</div>  
+
+### Option C: Using your own system
+
+If you have a VHDL/Verilog compiler such as Questa or Modelsim as well as UVVM and OSVVM already installed on your system, you can run it directly as follows:
 
 ```sh
 # Clone this repository and enter the directory
@@ -251,6 +280,11 @@ that improve productivity. It is available as an extension in VSCode and works o
 
 The only thing that needs to be configured are the libraries that it has access to. This configuration takes place in the file [vhdl_ls.toml](./vhdl_ls.toml). The UVMM libraries are straight-forward (usually in /opt/uvvm), but VUnit and the included OSVVM files are a bit more tricky, as they depend on how VUnit was installed.
 The solution to this is that the run.py script creates a file 'vhdl_ls.toml', which contains the libraries and locations of the project all libraries that are used in the project.
+
+## Verilog (outside of Vunit)
+
+To enable testing with Verilog, iverilog can be used. The script [vcompile.sh](./vcompile.sh) has been included, which looks through all subfolders of `hdl` and compiles all '*_tb.v' testbenches into the [verilog_build](./verilog_build) folder.
+From there, the testbenches can we run with `vvp <testbench-name>.out`
 
 ## Documentation
 

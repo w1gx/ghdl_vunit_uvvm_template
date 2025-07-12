@@ -4,6 +4,7 @@ __pycache__
 
 ## ----------- Vunit ignores -------------
 vunit_out
+gtkwave_sessions.sh
 
 ## ----------- VS Code ignores -----------
 .vscode

@@ -1,4 +1,4 @@
-FROM w1gx/ghdl-env:v0.3
+FROM w1gx/ghdl-env:v0.5
 
 ENV VUNIT_SIMULATOR=ghdl
 
